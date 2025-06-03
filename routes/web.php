@@ -29,7 +29,6 @@ Route::get('/category', [CategoryController::class, 'getIndex'])->middleware('au
 Route::get('/category/create', [CategoryController::class, 'getCreate'])->middleware('auth');
 Route::get('/category/edit/{id}', [CategoryController::class, 'getEdit'])->middleware('auth');
 Route::put('/category/edit/{id}', [CategoryController::class, 'putEdit'])->middleware('auth');
-
 Route::get('/category/show/{id}', [CategoryController::class, 'getShow'])->middleware('auth');
 
 
