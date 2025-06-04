@@ -83,4 +83,12 @@ class CategoryController extends Controller
 
         return redirect('/category/show/' . $post->id)->with('success', 'Post actualizado.');
     }
+
+    public function destroy($id)
+{
+    $post = Post::findOrFail($id);
+    $post->delete();
+
+    return redirect('/category')->with('success', 'Post eliminado correctamente.');
+}
 }

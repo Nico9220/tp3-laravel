@@ -31,7 +31,7 @@ Route::post('/category/create', [CategoryController::class, 'postCreate'])->midd
 Route::get('/category/edit/{id}', [CategoryController::class, 'getEdit'])->middleware('auth');
 Route::put('/category/edit/{id}', [CategoryController::class, 'putEdit'])->middleware('auth');
 Route::get('/category/show/{id}', [CategoryController::class, 'getShow'])->middleware('auth');
-
+Route::delete('/category/delete/{id}', [CategoryController::class, 'destroy'])->middleware('auth');
 
 // rutas de Breeze
 Route::get('/dashboard', function () {
