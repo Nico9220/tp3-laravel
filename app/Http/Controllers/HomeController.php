@@ -6,6 +6,10 @@ class HomeController extends Controller
 {
     public function getHome()
     {
-        return view('home');
+        $posts = \App\Models\Post::where('habilitated', true)
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return view('home', compact('posts'));
     }
 }

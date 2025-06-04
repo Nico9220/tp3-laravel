@@ -51,6 +51,25 @@ class CategoryController extends Controller
 
     //     return redirect('/category/show/' . $post->id)->with('success', 'Post actualizado correctamente.');
     // }
+
+
+    public function postCreate(Request $request)
+    {
+        $data = $request->validate([
+            'title' => 'required',
+            'poster' => 'required',
+            'content' => 'required',
+            'habilitated' => 'nullable',
+        ]);
+
+        $data['habilitated'] = $request->has('habilitated');
+
+        Post::create($data);
+
+        return redirect('/')->with('success', 'Post creado correctamente.');
+    }
+
+
     public function putEdit(Request $request, $id)
     {
         $post = Post::findOrFail($id);

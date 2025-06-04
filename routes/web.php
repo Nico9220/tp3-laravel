@@ -26,6 +26,8 @@ use App\Http\Controllers\CategoryController;
 Route::get('/', [HomeController::class, 'getHome'])->middleware('auth');
 Route::get('/category', [CategoryController::class, 'getIndex'])->middleware('auth');
 Route::get('/category/create', [CategoryController::class, 'getCreate'])->middleware('auth');
+Route::post('/category/create', [CategoryController::class, 'postCreate'])->middleware('auth');
+
 Route::get('/category/edit/{id}', [CategoryController::class, 'getEdit'])->middleware('auth');
 Route::put('/category/edit/{id}', [CategoryController::class, 'putEdit'])->middleware('auth');
 Route::get('/category/show/{id}', [CategoryController::class, 'getShow'])->middleware('auth');
