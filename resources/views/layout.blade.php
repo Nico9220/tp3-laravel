@@ -53,7 +53,9 @@
             @endguest
 
             @auth
-            <span class="hidden sm:inline">Bienvenido, {{ auth()->user()->name }}</span>
+            <a href="{{ route('profile.edit') }}" class="hidden sm:inline hover:underline">
+                Bienvenido, {{ auth()->user()->name }}
+            </a>
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
                 <button type="submit" class="hover:underline text-white">
