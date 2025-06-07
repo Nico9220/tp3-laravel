@@ -4,14 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use App\Models\Category;
+use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller
+
 {
     public function getIndex()
     {
-        $posts = Post::all();
-        return view('category.index', compact('posts'));
+        $categories = Category::all();
+        return view('category.index', compact('categories'));
     }
+
 
     public function getShow($id)
     {
@@ -22,7 +26,8 @@ class CategoryController extends Controller
 
     public function getCreate()
     {
-        return view('category.create');
+        $categories = Category::all();
+        return view('category.create', compact('categories'));
     }
 
     public function getEdit($id)
@@ -31,43 +36,30 @@ class CategoryController extends Controller
         return view('category.edit', compact('post'));
     }
 
-    // public function putEdit(Request $request, $id)
-    // {
-
-    //     $post = Post::findOrFail($id);
-
-    //     $validated = $request->validate([
-    //         'title' => 'required|string|max:255',
-    //         'poster' => 'required|string|max:255',
-    //         'content' => 'required|string',
-    //         'habilitated' => 'nullable|boolean',
-    //     ]);
-
-    //     $validated['habilitated'] = $request->has('habilitated');
-
-    //     dd($validated);
-
-    //     $post->update($validated);
-
-    //     return redirect('/category/show/' . $post->id)->with('success', 'Post actualizado correctamente.');
-    // }
 
 
     public function postCreate(Request $request)
     {
+        if (!Auth::check()) {
+            dd('Usuario no logueado');
+        }
+
         $data = $request->validate([
             'title' => 'required',
-            'poster' => 'required',
             'content' => 'required',
+            'category_id' => 'required|exists:categories,id',
             'habilitated' => 'nullable',
         ]);
 
         $data['habilitated'] = $request->has('habilitated');
+        $data['poster'] = Auth::user()->name;
 
         Post::create($data);
 
         return redirect('/')->with('success', 'Post creado correctamente.');
     }
+
+
 
 
     public function putEdit(Request $request, $id)
@@ -85,10 +77,16 @@ class CategoryController extends Controller
     }
 
     public function destroy($id)
-{
-    $post = Post::findOrFail($id);
-    $post->delete();
+    {
+        $post = Post::findOrFail($id);
+        $post->delete();
 
-    return redirect('/category')->with('success', 'Post eliminado correctamente.');
-}
+        return redirect('/category')->with('success', 'Post eliminado correctamente.');
+    }
+
+    public function getByCategory($id)
+    {
+        $category = Category::with('posts')->findOrFail($id);
+        return view('category.byCategory', compact('category'));
+    }
 }

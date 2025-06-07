@@ -1,26 +1,14 @@
 @extends('layout')
 
 @section('content')
-<h1 class="text-2xl font-bold mb-4">Listado de posts</h1>
+<h1 class="text-2xl font-bold mb-6">Categorías disponibles</h1>
 
-<ul class="list-disc pl-6">
-    @foreach($posts as $post)
-    <li>
-        <a href="{{ url('/category/show/' . $post->id) }}" class="text-blue-600 hover:underline">
-            <div class="flex items-center justify-between">
-            {{ $post->title }} ({{ $post->poster }})
-            <form action="{{ url('/category/delete/' . $post->id) }}" method="POST"
-                onsubmit="return confirm('¿Estás seguro de que querés eliminar este post?');"
-                >
-                @csrf
-                @method('DELETE')
-                <button type="submit" class="text-sm text-gray-500 hover:text-red-600 underline">
-                    Eliminar
-                </button>
-            </form>
-            </div>
-        </a>
-    </li>
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+    @foreach($categories as $category)
+    <a href="{{ url('/category/by/' . $category->id) }}" class="block bg-white border p-4 rounded shadow hover:shadow-md transition">
+        <h2 class="text-lg font-semibold text-red-700">{{ $category->name }}</h2>
+        <p class="text-sm text-gray-600">Ver posts relacionados</p>
+    </a>
     @endforeach
-</ul>
+</div>
 @endsection
