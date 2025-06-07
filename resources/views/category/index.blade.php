@@ -3,7 +3,8 @@
 @section('content')
 <h1 class="text-2xl font-bold mb-6">Categorías disponibles</h1>
 
-<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+{{-- Sección de categorías --}}
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-10">
     @foreach($categories as $category)
     <a href="{{ url('/category/by/' . $category->id) }}" class="block bg-white border p-4 rounded shadow hover:shadow-md transition">
         <h2 class="text-lg font-semibold text-red-700">{{ $category->name }}</h2>

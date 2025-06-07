@@ -17,6 +17,7 @@ class CategoryController extends Controller
     }
 
 
+
     public function getShow($id)
     {
         $post = Post::findOrFail($id); // esto lanza error 404 si no encuentra el id

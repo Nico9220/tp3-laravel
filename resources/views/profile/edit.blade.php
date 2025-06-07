@@ -1,9 +1,11 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+@extends('layout')
+
+
+@section('content')
+    <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             Editar Perfil
-        </h2>
-    </x-slot>
+    </h2>
+
 
     <div class="py-6 px-6">
         @if (session('status'))
@@ -36,4 +38,5 @@
             </button>
         </form>
     </div>
-</x-app-layout>
+
+@endsection
