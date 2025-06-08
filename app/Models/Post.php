@@ -12,4 +12,10 @@ class Post extends Model
     protected $table = 'posts';
 
     protected $fillable = ['title', 'poster', 'content', 'category_id', 'habilitated'];
+
+    // Relación con Category
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 }
