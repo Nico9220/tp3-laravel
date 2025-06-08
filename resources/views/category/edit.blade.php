@@ -22,12 +22,6 @@
         <textarea name="content" class="w-full border px-2 py-1 rounded" rows="5" required>{{ $post->content }}</textarea>
     </div>
 
-    <div>
-        <label class="inline-flex items-center">
-            <input type="checkbox" name="habilitated" class="mr-2" {{ $post->habilitated ? 'checked' : '' }}>
-            ¿Publicado?
-        </label>
-    </div>
 
     <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">
         Guardar cambios

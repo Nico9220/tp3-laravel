@@ -48,12 +48,6 @@
     </div>
 
     <div>
-        <label class="inline-flex items-center">
-            <input type="checkbox" name="habilitated" class="mr-2">
-            ¿Publicado?
-        </label>
-    </div>
-    <div>
         <label class="block font-semibold mb-1">Categoría:</label>
         <select name="category_id" class="border px-2 py-1 rounded w-full" required>
             @foreach($categories as $category)

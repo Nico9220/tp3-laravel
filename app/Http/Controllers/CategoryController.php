@@ -52,13 +52,12 @@ class CategoryController extends Controller
             'habilitated' => 'nullable',
         ]);
 
-        $data['habilitated'] = $request->has('habilitated');
+        $data['habilitated'] = true;
         $data['poster'] = Auth::user()->name;
 
         Post::create($data);
 
         return redirect('/category/create')->with('success', 'Post creado correctamente.');
-
     }
 
 
@@ -71,7 +70,7 @@ class CategoryController extends Controller
         $post->title = $request->input('title');
         $post->poster = $request->input('poster');
         $post->content = $request->input('content');
-        $post->habilitated = $request->has('habilitated'); // checkbox
+        $post->habilitated = true;
 
         $post->save();
 
