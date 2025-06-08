@@ -57,7 +57,8 @@ class CategoryController extends Controller
 
         Post::create($data);
 
-        return redirect('/')->with('success', 'Post creado correctamente.');
+        return redirect('/category/create')->with('success', 'Post creado correctamente.');
+
     }
 
 
