@@ -54,6 +54,7 @@ class CategoryController extends Controller
 
         $data['habilitated'] = true;
         $data['poster'] = Auth::user()->name;
+        $data['user_id'] = Auth::id();
 
         Post::create($data);
 

@@ -39,4 +39,27 @@
         </form>
     </div>
 
+    <hr class="my-8">
+
+    <h3 class="text-lg font-semibold text-gray-800 mb-4">Mis Posts</h3>
+
+    @if ($posts->isEmpty())
+        <p class="text-gray-600">Todavía no publicaste ningún post.</p>
+    @else
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            @foreach ($posts as $post)
+                <div class="bg-white p-4 rounded shadow border hover:shadow-md transition">
+                    <h4 class="text-xl font-bold text-gray-800 mb-1">{{ $post->title }}</h4>
+                    <p class="text-sm text-gray-500 mb-2">Publicado el {{ $post->created_at->format('d/m/Y') }}</p>
+                    <p class="text-sm text-gray-700 line-clamp-3">{{ Str::limit($post->content, 100) }}</p>
+
+                    <a href="{{ url('/category/show/' . $post->id) }}" class="text-red-700 hover:underline text-sm mt-2 inline-block">
+                        Ver más →
+                    </a>
+                </div>
+            @endforeach
+        </div>
+    @endif
+
+
 @endsection

@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use App\Models\Post;
 
 class ProfileController extends Controller
 {
@@ -16,8 +17,16 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): View
     {
+        $user = $request->user();
+
+        // Obtener los posts del usuario autenticado
+        $posts = Post::where('user_id', $user->id)
+            ->orderBy('created_at', 'desc')
+            ->get();
+
         return view('profile.edit', [
-            'user' => $request->user(),
+            'user' => $user,
+            'posts' => $posts, // Pasamos los posts a la vista
         ]);
     }
 

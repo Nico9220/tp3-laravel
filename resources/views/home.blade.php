@@ -4,11 +4,11 @@
 <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
 
     <div class="text-center mb-12">
-        <h1 class="text-4xl font-extrabold text-gray-800">Bienvenido a <span class="text-red-700">MyBlog</span></h1>
+        <h1 class="text-4xl font-extrabold text-gray-800">Bienvenido a <span class="text-red-700">Comunidad Laravel</span></h1>
         <p class="mt-4 text-gray-600 text-lg">Tu espacio personal para escribir, editar y compartir contenido sobre Laravel.</p>
 
         @auth
-        <p class="mt-2 text-green-700 font-medium">Hola {{ Auth::user()->name }}, ¡nos alegra verte!</p>
+        <p class="mt-2 text-blue-700 font-medium">Hola {{ Auth::user()->name }}, ¡nos alegra verte!</p>
 
         <div class="flex flex-wrap gap-4 justify-center mt-6">
             <a href="/category/create" class="bg-red-700 hover:bg-red-800 text-white px-5 py-2 rounded">
@@ -23,6 +23,37 @@
     </div>
 
     <h2 class="text-xl font-semibold text-gray-800 mb-4">Últimos posts publicados</h2>
+    <div class="mb-6 flex flex-wrap gap-4 justify-center">
+        <a href="{{ url('/') }}" class="px-4 py-2 rounded border text-sm {{ request('category') ? 'bg-gray-100 text-gray-700' : 'bg-red-700 text-white' }}">
+            Todas
+        </a>
+        
+
+    {{-- Botones de categoría --}}
+    @foreach ($categories as $category)
+        <a href="{{ url('/?category=' . $category->id . '&search=' . request('search')) }}"
+           class="px-4 py-2 rounded border text-sm {{ request('category') == $category->id ? 'bg-red-700 text-white' : 'bg-gray-100 text-gray-700' }}">
+            {{ $category->name }}
+        </a>
+    @endforeach
+
+    {{-- Formulario de búsqueda --}}
+    <form method="GET" action="{{ url('/') }}" class="flex gap-2 mt-4 md:mt-0">
+        @if(request('category'))
+            <input type="hidden" name="category" value="{{ request('category') }}">
+        @endif
+
+        <input type="text" name="search" placeholder="Buscar posts..." value="{{ request('search') }}"
+               class="px-3 py-2 border rounded w-64" />
+
+        <button type="submit" class="bg-red-700 text-white px-4 py-2 rounded hover:bg-red-800">
+            Buscar
+        </button>
+    </form>
+    </div>
+
+    </div>
+
 
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
