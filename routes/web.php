@@ -24,6 +24,10 @@ use App\Http\Controllers\CategoryController;
 
 
 Route::get('/', [HomeController::class, 'getHome'])->middleware('auth');
+
+Route::get('/category', [CategoryController::class, 'getIndex'])->name('categories.index');
+
+
 Route::get('/category', [CategoryController::class, 'getIndex'])->middleware('auth');
 Route::get('/category/create', [CategoryController::class, 'getCreate'])->middleware('auth');
 Route::post('/category/create', [CategoryController::class, 'postCreate'])->middleware('auth');

@@ -3,9 +3,8 @@
 
 @section('content')
     <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            Editar Perfil
+        Editar Perfil
     </h2>
-
 
     <div class="py-6 px-6">
         @if (session('status'))
@@ -18,22 +17,47 @@
             @csrf
             @method('PATCH')
 
-            <div>
-                <label>Nombre:</label>
-                <input type="text" name="name" value="{{ $user->name }}" class="border p-2 w-full">
-                @error('name') <div class="text-red-500">{{ $message }}</div> @enderror
+            {{-- Campo para el nombre --}}
+            <div class="mb-4"> {{-- Agregamos un margen inferior --}}
+                <label for="name" class="block text-gray-700 text-sm font-bold mb-2">Nombre:</label>
+                <input type="text" name="name" id="name" value="{{ old('name', $user->name) }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                @error('name') <div class="text-red-500 text-xs italic mt-1">{{ $message }}</div> @enderror
             </div>
 
-            <button class="mt-4 bg-indigo-600 text-white px-4 py-2 rounded">
+            {{-- Campo para el email --}}
+            <div class="mb-4">
+                <label for="email" class="block text-gray-700 text-sm font-bold mb-2">Email:</label>
+                <input type="email" name="email" id="email" value="{{ old('email', $user->email) }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                @error('email') <div class="text-red-500 text-xs italic mt-1">{{ $message }}</div> @enderror
+            </div>
+
+            <hr class="my-6"> {{-- Separador para las contraseñas --}}
+
+            <h3 class="text-lg font-semibold text-gray-800 mb-4">Cambiar Contraseña</h3>
+
+            {{-- Campo para la nueva contraseña --}}
+            <div class="mb-4">
+                <label for="password" class="block text-gray-700 text-sm font-bold mb-2">Nueva Contraseña:</label>
+                <input type="password" name="password" id="password" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                @error('password') <div class="text-red-500 text-xs italic mt-1">{{ $message }}</div> @enderror
+            </div>
+
+            {{-- Campo para confirmar la nueva contraseña --}}
+            <div class="mb-6"> {{-- Agregamos un margen inferior más grande --}}
+                <label for="password_confirmation" class="block text-gray-700 text-sm font-bold mb-2">Confirmar Nueva Contraseña:</label>
+                <input type="password" name="password_confirmation" id="password_confirmation" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            </div>
+
+            <button class="mt-4 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                 Guardar cambios
             </button>
         </form>
 
-        <form method="POST" action="{{ route('profile.destroy') }}" class="mt-4">
+        <form method="POST" action="{{ route('profile.destroy') }}" class="mt-8"> {{-- Aumentamos el margen --}}
             @csrf
             @method('DELETE')
 
-            <button onclick="return confirm('¿Seguro que querés eliminar tu cuenta?')" class="bg-red-600 text-white px-4 py-2 rounded">
+            <button type="submit" onclick="return confirm('¿Estás seguro de que quieres eliminar tu cuenta? Esta acción no se puede deshacer.')" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                 Eliminar cuenta
             </button>
         </form>
@@ -60,6 +84,4 @@
             @endforeach
         </div>
     @endif
-
-
 @endsection
